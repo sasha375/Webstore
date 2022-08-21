@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="/bootstrap.css">
+    </head>
+    <body>
+        <nav aria-label="..." style="margin-top: 50px">
+          <ul class="pagination">
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1" aria-disabled="{% if page_n == 0 %}true{% else %}false{% endif %}">Previous</a>
+            </li>
+            {% if page_n == 0 %}
+              <li class="page-item active" aria-current="page">
+                <a class="page-link" href="#">{{ page_n+1 }}<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="page{{ page_n+1 }}.html">{{ page_n+2 }}</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="page{{ page_n+2 }}.html">{{ page_n+3 }}</a>
+              </li>
+            {% elif page_n == pages_c-1 %}
+              <li class="page-item">
+                <a class="page-link" href="page{{ page_n-2 }}.html">{{ page_n-1 }}</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="page{{ page_n-1 }}.html">{{ page_n }}</a>
+              </li>
+              <li class="page-item active" aria-current="page">
+                <a class="page-link" href="#">{{ page_n+1 }}<span class="sr-only">(current)</span></a>
+              </li>
+            {% else %}
+              <li class="page-item">
+                <a class="page-link" href="page{{ page_n-1 }}.html">{{ page_n }}</a>
+              </li>
+              <li class="page-item active" aria-current="page">
+                <a class="page-link" href="page{{ page_n }}.html">{{ page_n+1 }}<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="page{{ page_n+1 }}.html">{{ page_n+2 }}</a>
+              </li>
+            {% endif %}
+            <li class="page-item">
+              <a class="page-link" href="#" aria-disabled="{% if last_page %}true{% else %}false{% endif %}">Next</a>
+            </li>
+          </ul>
+        </nav>
+        <div class="container">
+          {% for card in books %}
+            {% if loop.index % 2 == 1 %} <div class="row"> {% endif %}
+            <a href="{{ card.txt_url }}">
+              <div class="card mb-3" style="width: 540px;">
+                <div class="row no-gutters">
+                  <div class="col-md-4">
+                    <img style="width: 100px" src="/images/{{ card.book_id }}.jpg" class="card-img" alt="{{ card.title }}">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ card.title }}</h5>
+                      <p class="card-text">{{ card.author }}</p>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                          {% for genre in card.genres %}
+                          <span class="badge badge-pill badge-light">{{ genre }}</span>
+                          {% endfor %}
+                        </li>
+                      </ul>
+                      <p class="card-text"><small class="text-muted">Last updated {{ card.last_updated }}</small></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+            {% if loop.index % 2 == 0 %} </div> {% endif %}
+          {% endfor %}
+        </div>
+    </body>
+</html>
