@@ -5,6 +5,8 @@ import json
 import os
 from more_itertools import chunked
 
+BOOKS_ON_ONE_PAGE = 20
+
 env = Environment(
     loader=FileSystemLoader('.'),
     autoescape=select_autoescape(['html', 'xml'])
@@ -16,7 +18,7 @@ with open("books.json") as f:
     books = json.load(f)
 
 os.makedirs("pages", exist_ok=True)
-pages = list(chunked(books, 20))
+pages = list(chunked(books, BOOKS_ON_ONE_PAGE))
 for ind, page in enumerate(pages):
     rendered_page = template.render(
         books = page,
