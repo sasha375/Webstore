@@ -1,4 +1,4 @@
-from http.server import HTTPServer, SimpleHTTPRequestHandler
+from livereload import Server
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 import json
@@ -11,25 +11,27 @@ env = Environment(
     loader=FileSystemLoader('.'),
     autoescape=select_autoescape(['html', 'xml'])
 )
-
-template = env.get_template('template.html')
-
-with open("books.json") as f:
-    books = json.load(f)
-
 os.makedirs("pages", exist_ok=True)
-pages = list(chunked(books, BOOKS_ON_ONE_PAGE))
-for ind, page in enumerate(pages):
-    rendered_page = template.render(
-        books = page,
-        page_n = ind,
-        pages_c = len(list(pages))
-    )
 
-    with open(f'pages/page{ind}.html', 'w', encoding="utf8") as file:
-        file.write(rendered_page)
+def rebuild():
+    template = env.get_template('template.html')
 
-print("loaded")
+    with open("books.json") as f:
+        books = json.load(f)
 
-server = HTTPServer(('0.0.0.0', 8000), SimpleHTTPRequestHandler)
-server.serve_forever()
+    pages = list(chunked(books, BOOKS_ON_ONE_PAGE))
+    for ind, page in enumerate(pages):
+        rendered_page = template.render(
+            books = page,
+            page_n = ind,
+            pages_c = len(list(pages))
+        )
+
+        with open(f'pages/page{ind}.html', 'w', encoding="utf8") as file:
+            file.write(rendered_page)
+
+    print("rebuilt")
+
+server = Server()
+server.watch("*", rebuild)
+server.serve(root=".")
