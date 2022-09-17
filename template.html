@@ -9,37 +9,37 @@
         <nav aria-label="..." class="mt-50">
           <ul class="pagination">
             <li class="page-item disabled">
-              <a class="page-link" href="#" tabindex="-1" aria-disabled="{% if page_n == 0 %}true{% else %}false{% endif %}">Previous</a>
+              <a class="page-link" href="#" tabindex="-1" aria-disabled="{% if page_index == 0 %}true{% else %}false{% endif %}">Previous</a>
             </li>
-            {% if page_n == 0 %}
+            {% if page_index == 0 %}
               <li class="page-item active" aria-current="page">
-                <a class="page-link" href="#">{{ page_n+1 }}<span class="sr-only">(current)</span></a>
+                <a class="page-link" href="#">{{ page_index+1 }}<span class="sr-only">(current)</span></a>
               </li>
               <li class="page-item">
-                <a class="page-link" href="page{{ page_n+1 }}.html">{{ page_n+2 }}</a>
+                <a class="page-link" href="page{{ page_index+1 }}.html">{{ page_index+2 }}</a>
               </li>
               <li class="page-item">
-                <a class="page-link" href="page{{ page_n+2 }}.html">{{ page_n+3 }}</a>
+                <a class="page-link" href="page{{ page_index+2 }}.html">{{ page_index+3 }}</a>
               </li>
-            {% elif page_n == pages_c-1 %}
+            {% elif page_index == pages_count-1 %}
               <li class="page-item">
-                <a class="page-link" href="page{{ page_n-2 }}.html">{{ page_n-1 }}</a>
+                <a class="page-link" href="page{{ page_index-2 }}.html">{{ page_index-1 }}</a>
               </li>
               <li class="page-item">
-                <a class="page-link" href="page{{ page_n-1 }}.html">{{ page_n }}</a>
+                <a class="page-link" href="page{{ page_index-1 }}.html">{{ page_index }}</a>
               </li>
               <li class="page-item active" aria-current="page">
-                <a class="page-link" href="#">{{ page_n+1 }}<span class="sr-only">(current)</span></a>
+                <a class="page-link" href="#">{{ page_index+1 }}<span class="sr-only">(current)</span></a>
               </li>
             {% else %}
               <li class="page-item">
-                <a class="page-link" href="page{{ page_n-1 }}.html">{{ page_n }}</a>
+                <a class="page-link" href="page{{ page_index-1 }}.html">{{ page_index }}</a>
               </li>
               <li class="page-item active" aria-current="page">
-                <a class="page-link" href="page{{ page_n }}.html">{{ page_n+1 }}<span class="sr-only">(current)</span></a>
+                <a class="page-link" href="page{{ page_index }}.html">{{ page_index+1 }}<span class="sr-only">(current)</span></a>
               </li>
               <li class="page-item">
-                <a class="page-link" href="page{{ page_n+1 }}.html">{{ page_n+2 }}</a>
+                <a class="page-link" href="page{{ page_index+1 }}.html">{{ page_index+2 }}</a>
               </li>
             {% endif %}
             <li class="page-item">

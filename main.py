@@ -23,8 +23,8 @@ def rebuild():
     for ind, page in enumerate(pages):
         rendered_page = template.render(
             books = page,
-            page_n = ind,
-            pages_c = len(list(pages))
+            page_index = ind,
+            pages_count = len(list(pages))
         )
 
         with open(f'pages/page{ind}.html', 'w', encoding="utf8") as file:
