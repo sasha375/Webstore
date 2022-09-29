@@ -32,6 +32,8 @@ def rebuild():
 
     print("rebuilt")
 
+rebuild()
+
 server = Server()
 server.watch("*", rebuild)
 server.serve(root=".")
