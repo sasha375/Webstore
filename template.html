@@ -50,7 +50,7 @@
         <div class="container">
           {% for card in books %}
             {% if loop.index % 2 == 1 %} <div class="row"> {% endif %}
-            <a href="{{ card.txt_url }}">
+            <a href="{{ card.txt_url }}" target="_blank">
               <div class="card mb-3" style="width: 540px;">
                 <div class="row no-gutters">
                   <div class="col-md-4">
