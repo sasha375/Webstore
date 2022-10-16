@@ -8,8 +8,8 @@
     <body>
         <nav aria-label="..." class="mt-50">
           <ul class="pagination">
-            <li class="page-item disabled">
-              <a class="page-link" href="#" tabindex="-1" aria-disabled="{% if page_index == 0 %}true{% else %}false{% endif %}">Previous</a>
+            <li class="page-item {% if page_index == 0 %}disabled{% endif %}">
+              <a class="page-link" href="page{{ page_index-1 }}.html" tabindex="-1" aria-disabled="{% if page_index == 0 %}true{% else %}false{% endif %}">Previous</a>
             </li>
             {% if page_index == 0 %}
               <li class="page-item active" aria-current="page">
@@ -42,15 +42,15 @@
                 <a class="page-link" href="page{{ page_index+1 }}.html">{{ page_index+2 }}</a>
               </li>
             {% endif %}
-            <li class="page-item">
-              <a class="page-link" href="#" aria-disabled="{% if last_page %}true{% else %}false{% endif %}">Next</a>
+            <li class="page-item {% if last_page %}disabled{% endif %}">
+              <a class="page-link" href="page{{ page_index+1 }}.html" aria-disabled="{% if last_page %}true{% else %}false{% endif %}">Next</a>
             </li>
           </ul>
         </nav>
         <div class="container">
           {% for card in books %}
             {% if loop.index % 2 == 1 %} <div class="row"> {% endif %}
-            <a href="{{ card.txt_url }}" target="_blank">
+            <a href="https://tululu.org/read{{ card.book_id }}" target="_blank">
               <div class="card mb-3" style="width: 540px;">
                 <div class="row no-gutters">
                   <div class="col-md-4">
