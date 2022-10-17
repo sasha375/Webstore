@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
     <head>
+        <title>Weblib</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="../bootstrap.css">
@@ -9,7 +10,7 @@
         <nav aria-label="..." class="mt-50">
           <ul class="pagination">
             <li class="page-item {% if page_index == 0 %}disabled{% endif %}">
-              <a class="page-link" href="page{{ page_index-1 }}.html" tabindex="-1" aria-disabled="{% if page_index == 0 %}true{% else %}false{% endif %}">Previous</a>
+              <a class="page-link" {% if page_index != 0 %}href="page{{ page_index-1 }}.html"{% endif %} tabindex="-1" aria-disabled="{% if page_index == 0 %}true{% else %}false{% endif %}">Previous</a>
             </li>
             {% if page_index == 0 %}
               <li class="page-item active" aria-current="page">
