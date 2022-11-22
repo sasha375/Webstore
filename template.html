@@ -5,53 +5,55 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="../bootstrap.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">        
     </head>
     <body>
-        <nav aria-label="..." class="mt-50">
-          <ul class="pagination">
-            <li class="page-item {% if page_index == 0 %}disabled{% endif %}">
-              <a class="page-link" {% if page_index != 0 %}href="page{{ page_index-1 }}.html"{% endif %} tabindex="-1" aria-disabled="{% if page_index == 0 %}true{% else %}false{% endif %}">Previous</a>
-            </li>
-            {% if page_index == 0 %}
-              <li class="page-item active" aria-current="page">
-                <a class="page-link" href="#">{{ page_index+1 }}<span class="sr-only">(current)</span></a>
+        <nav style="margin-top: 20px; margin-left: auto; width: 100%; display: flex; justify-content: center">
+          <div id="pagination-inner">
+            <ul class="pagination mx-auto mt-10" style="flex-basis: 50px;">
+              <li class="page-item {% if page_index == 0 %}disabled{% endif %}">
+                <a class="page-link" {% if page_index != 0 %}href="page{{ page_index-1 }}.html"{% endif %} tabindex="-1" aria-disabled="{% if page_index == 0 %}true{% else %}false{% endif %}">Previous</a>
               </li>
-              <li class="page-item">
-                <a class="page-link" href="page{{ page_index+1 }}.html">{{ page_index+2 }}</a>
+              {% if page_index == 0 %}
+                <li class="page-item active" aria-current="page">
+                  <a class="page-link" href="#">{{ page_index+1 }}<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="page{{ page_index+1 }}.html">{{ page_index+2 }}</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="page{{ page_index+2 }}.html">{{ page_index+3 }}</a>
+                </li>
+              {% elif page_index == pages_count-1 %}
+                <li class="page-item">
+                  <a class="page-link" href="page{{ page_index-2 }}.html">{{ page_index-1 }}</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="page{{ page_index-1 }}.html">{{ page_index }}</a>
+                </li>
+                <li class="page-item active" aria-current="page">
+                  <a class="page-link" href="#">{{ page_index+1 }}<span class="sr-only">(current)</span></a>
+                </li>
+              {% else %}
+                <li class="page-item">
+                  <a class="page-link" href="page{{ page_index-1 }}.html">{{ page_index }}</a>
+                </li>
+                <li class="page-item active" aria-current="page">
+                  <a class="page-link" href="page{{ page_index }}.html">{{ page_index+1 }}<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="page{{ page_index+1 }}.html">{{ page_index+2 }}</a>
+                </li>
+              {% endif %}
+              <li class="page-item {% if last_page %}disabled{% endif %}">
+                <a class="page-link" href="page{{ page_index+1 }}.html" aria-disabled="{% if last_page %}true{% else %}false{% endif %}">Next</a>
               </li>
-              <li class="page-item">
-                <a class="page-link" href="page{{ page_index+2 }}.html">{{ page_index+3 }}</a>
-              </li>
-            {% elif page_index == pages_count-1 %}
-              <li class="page-item">
-                <a class="page-link" href="page{{ page_index-2 }}.html">{{ page_index-1 }}</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="page{{ page_index-1 }}.html">{{ page_index }}</a>
-              </li>
-              <li class="page-item active" aria-current="page">
-                <a class="page-link" href="#">{{ page_index+1 }}<span class="sr-only">(current)</span></a>
-              </li>
-            {% else %}
-              <li class="page-item">
-                <a class="page-link" href="page{{ page_index-1 }}.html">{{ page_index }}</a>
-              </li>
-              <li class="page-item active" aria-current="page">
-                <a class="page-link" href="page{{ page_index }}.html">{{ page_index+1 }}<span class="sr-only">(current)</span></a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="page{{ page_index+1 }}.html">{{ page_index+2 }}</a>
-              </li>
-            {% endif %}
-            <li class="page-item {% if last_page %}disabled{% endif %}">
-              <a class="page-link" href="page{{ page_index+1 }}.html" aria-disabled="{% if last_page %}true{% else %}false{% endif %}">Next</a>
-            </li>
-          </ul>
+            </ul>
+          </div>
         </nav>
         <div class="container">
           {% for card in books %}
             {% if loop.index % 2 == 1 %} <div class="row"> {% endif %}
-            <a href="https://tululu.org/read{{ card.book_id }}" target="_blank">
               <div class="card mb-3" style="width: 540px;">
                 <div class="row no-gutters">
                   <div class="col-md-4">
@@ -68,12 +70,13 @@
                           {% endfor %}
                         </li>
                       </ul>
-                      <p class="card-text"><small class="text-muted">Last updated {{ card.last_updated }}</small></p>
+                      <a href="https://tululu.org/read{{ card.book_id }}" target="_blank">
+                        <p class="card-text">Читать</p>
+                      </a>
                     </div>
                   </div>
                 </div>
               </div>
-            </a>
             {% if loop.index % 2 == 0 %} </div> {% endif %}
           {% endfor %}
         </div>
